@@ -14,6 +14,7 @@ cd Apollo-Template
 
 
 ### Documentation
+- [Add your own function](./doc/addFunction.md)
 - Python layers:
      - [Create a custom AWS Python layer](./doc/awsLayer.md)
      - [Create a custom IBM Python layer](./doc/ibmLayer.md)

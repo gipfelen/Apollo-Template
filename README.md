@@ -14,9 +14,9 @@ cd Apollo-Template
 
 
 ### Documentation
-- Layers:
-     - [Create custom AWS layer](./doc/awsLayer.md)
-     - [Create custom IBM layer](./doc/ibmLayer.md)
+- Python layers:
+     - [Create a custom AWS Python layer](./doc/awsLayer.md)
+     - [Create a custom IBM Python layer](./doc/ibmLayer.md)
 - Add function to auto deployment:
      - [For AWS](./doc/awsAddDeployment.md)
      - [For IBM](./doc/ibmAddDeployment.md)

@@ -26,9 +26,9 @@ provider "ibm" {
 
 
 locals {
-  function_names = ["sentim-batch","sentim-preprocess","sentim-reduce"]
-  function_docker_names = ["sentim-inference-textblob","sentim-inference"]
-  function_docker_images = ["gipfelen/textblob-for-ibm-linux-env","gipfelen/tflite_runntime-for-ibm-linux-env:1.2"]
+  function_names = ["template-node","template-python"]
+  function_docker_names = []
+  function_docker_images = []
 }
 
 
@@ -96,22 +96,10 @@ EOF
 
 
 
-output "url_sentim-batch" {
+output "url_template-node" {
   value = "${ibm_function_action.functions[0].target_endpoint_url}.json"
 }
 
-output "url_sentim-inference-textblob" {
-  value = "${ibm_function_action.functions_docker[0].target_endpoint_url}.json"
-}
-
-output "url_sentim-inference" {
-  value = "${ibm_function_action.functions_docker[1].target_endpoint_url}.json"
-}
-
-output "url_sentim-preprocess" {
+output "url_template-python" {
   value = "${ibm_function_action.functions[1].target_endpoint_url}.json"
-}
-
-output "url_sentim-reduce" {
-  value = "${ibm_function_action.functions[2].target_endpoint_url}.json"
 }

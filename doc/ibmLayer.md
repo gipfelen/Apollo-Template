@@ -5,20 +5,4 @@ If your python function requires dependencies, which are not included in the def
 3. Add all the required pip dependencies to `requirements.txt` and if needed adjust the Dockerfile itself.
 4. Run `docker build -t <your_docker_hub_username>/<layer-name> .` to build your Docker image.
 5. Run `docker push <your_docker_hub_username>/<layer-name>` to push your Docker image to Docker Hub.
-6. Adjust `ibm/ibm.tf`:
-    1. Remove your function from the `function_name` array, if you already added it to it.
-    2. Add your function to the `function_docker_names` array.
-    3. Add `<your_docker_hub_username>/<layer-name>` to `function_docker_images` array. Your locals block should now look similar to this:
-        ```
-        locals {
-            function_names = ["template-node","template-python"]
-            function_docker_names = ["<your-function-name>"]
-            function_docker_images = ["<your_docker_hub_username>/<layer-name>"]
-        }
-        ```
-    4. Add a new output block at the end of `ibm/ibm.tf`:
-        ```
-        output "url_<your-function-name>" {
-            value = "${ibm_function_action.functions_docker[<index_in_function_docker_names_array>].target_endpoint_url}.json"
-        }
-        ```
+6. Adjust `ibm/ibm.tf` by following [this](./ibmAddDeployment.md) guide.

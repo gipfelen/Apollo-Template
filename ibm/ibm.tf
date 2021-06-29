@@ -26,9 +26,9 @@ provider "ibm" {
 
 
 locals {
-  function_names = ["template-node","template-python"]
-  function_docker_names = []
-  function_docker_images = []
+  function_names = ["template-node"]
+  function_docker_names = ["template-python"]
+  function_docker_images = ["ibmfunctions/action-python-v3.7"]
 }
 
 
@@ -101,5 +101,5 @@ output "url_template-node" {
 }
 
 output "url_template-python" {
-  value = "${ibm_function_action.functions[1].target_endpoint_url}.json"
+  value = "${ibm_function_action.functions_docker[0].target_endpoint_url}.json"
 }

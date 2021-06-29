@@ -13,6 +13,18 @@ cd Apollo-Template
 ```
 
 
+### Documentation
+- Layers:
+     - [Create custom AWS layer](./doc/awsLayer.md)
+     - [Create custom IBM layer](./doc/ibmLayer.md)
+- Add function to auto deployment:
+     - [For AWS](./doc/awsAddDeployment.md)
+     - [For IBM](./doc/ibmAddDeployment.md)
+- [Add a S3 Bucket](./doc/s3Bucket.md)
+
+
+
+
 #### Autodeploy
 1. Save the credentials for your cloud provider in the according subfolder:
    - AWS: Go to the service IAM and create a new user with the access type `Programmatic access` and attach the `AdministratorAccess` policy, which is part of the existing policies. You can copy the `Access key ID` and `Secret access key` and put it into the following format and save it under `aws/credentials`:

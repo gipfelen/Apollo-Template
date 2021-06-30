@@ -42,7 +42,7 @@ resource "ibm_function_action" "functions" {
   provider = ibm.region
 
   exec {
-    kind = "python:3.7"
+    kind = "nodejs:12"
     code_path = "tmp/${local.function_names[count.index]}.zip"
   }
 

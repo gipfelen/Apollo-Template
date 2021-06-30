@@ -34,52 +34,46 @@ EOF
 
 
 
-# Configuration of the lambda layers
-resource "aws_lambda_layer_version" "textblob_layer" {
-  filename   = "./layers/textblob-for-amazon-linux-env.zip"
-  layer_name = "textblob_layer"
-  
-  compatible_runtimes = ["python3.7"]
-}
-
-resource "aws_lambda_layer_version" "tflite_layer" {
-  filename   = "./layers/tflite-for-amazon-linux-env.zip"
-  layer_name = "tflite_layer"
-  
-  compatible_runtimes = ["python3.7"]
-}
+# # Configuration of the lambda layers
+# resource "aws_lambda_layer_version" "<your_function_name>" {
+#   filename   = "./layers/<your_function_name>.zip"
+#   layer_name = "<your_function_name>"
+            
+#   compatible_runtimes = ["python3.8"]
+# }
 
 
 
 
-
-# Configuration of the lambda functions
+############################################
+# Configuration of the lambda functions    #
+############################################
 
 locals {
-  function_names = ["sentim-batch","sentim-inference-textblob","sentim-inference","sentim-preprocess","sentim-reduce"]
-  layers = [[],[aws_lambda_layer_version.textblob_layer.arn],[aws_lambda_layer_version.tflite_layer.arn],[],[]]
+  function_names = ["template-node","template-python"]
+  function_paths = ["tmp/template-node.zip","tmp/template-node.zip"]
+  function_runtimes = ["nodejs14.x","python3.8"]
+  function_handlers = ["index.handler","lambda_function.lambda_handler"]
+  function_layers = [[],[]]
 }
-
-
-
 
 resource "aws_lambda_function" "lambda" {
   count = length(local.function_names)
 
-  filename      = "tmp/${local.function_names[count.index]}.zip"
+  filename      = local.function_paths[count.index]
   function_name = local.function_names[count.index]
   role          = aws_iam_role.iam_for_lambda.arn
-  handler       = "lambda_function.lambda_handler"
-  timeout       = 60
-  memory_size   =  128
-  runtime = "python3.7"
-  layers = local.layers[count.index]
-  source_code_hash = filebase64sha256( "tmp/${local.function_names[count.index]}.zip")
+  handler       = local.function_handlers[count.index]
+  timeout       = 300
+  memory_size   =  256
+  layers        = local.function_layers[count.index]
+  runtime       = local.function_runtimes[count.index]
+  source_code_hash = filebase64sha256(local.function_paths[count.index])
 }
 
 
 ############################################
-# Gateway sentim-inference-textblob_new    #
+# Gateway                                  #
 ############################################
 
 resource "aws_api_gateway_rest_api" "example" {
@@ -160,36 +154,6 @@ resource "aws_api_gateway_deployment" "example1" {
    stage_name  = local.function_names[1]
 }
 
-resource "aws_api_gateway_deployment" "example2" {
-   depends_on = [
-     aws_api_gateway_integration.lambda[2],
-     aws_api_gateway_integration.lambda_root[2],
-   ]
-
-   rest_api_id = aws_api_gateway_rest_api.example[2].id
-   stage_name  = local.function_names[2]
-}
-
-resource "aws_api_gateway_deployment" "example3" {
-   depends_on = [
-     aws_api_gateway_integration.lambda[3],
-     aws_api_gateway_integration.lambda_root[3],
-   ]
-
-   rest_api_id = aws_api_gateway_rest_api.example[3].id
-   stage_name  = local.function_names[3]
-}
-
-resource "aws_api_gateway_deployment" "example4" {
-   depends_on = [
-     aws_api_gateway_integration.lambda[4],
-     aws_api_gateway_integration.lambda_root[4],
-   ]
-
-   rest_api_id = aws_api_gateway_rest_api.example[4].id
-   stage_name  = local.function_names[4]
-}
-
 resource "aws_lambda_permission" "apigw" {
    count = length(local.function_names)
 
@@ -205,18 +169,10 @@ resource "aws_lambda_permission" "apigw" {
 
 
 
-output "url_sentim-batch" {
+output "url_template-node" {
   value = aws_api_gateway_deployment.example0.invoke_url
 }
-output "url_sentim-inference-textblob" {
+
+output "url_template-python" {
   value = aws_api_gateway_deployment.example1.invoke_url
-}
-output "url_sentim-inference" {
-  value = aws_api_gateway_deployment.example2.invoke_url
-}
-output "url_sentim-preprocess" {
-  value = aws_api_gateway_deployment.example3.invoke_url
-}
-output "url_sentim-reduce" {
-  value = aws_api_gateway_deployment.example4.invoke_url
 }

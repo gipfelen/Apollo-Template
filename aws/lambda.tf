@@ -51,7 +51,7 @@ EOF
 
 locals {
   function_names = ["template-node","template-python"]
-  function_paths = ["tmp/template-node.zip","tmp/template-node.zip"]
+  function_paths = ["tmp/template-node.zip","tmp/template-python.zip"]
   function_runtimes = ["nodejs14.x","python3.8"]
   function_handlers = ["index.handler","lambda_function.lambda_handler"]
   function_layers = [[],[]]

@@ -1,6 +1,6 @@
 async function templateFunction(params) {
-  const input1 = params['input1'];
-  
+  const body = params;
+  const input1 = body['input1']
   const response = {
     input1: input1
   };
@@ -15,7 +15,7 @@ exports.handler = async (event) => {
   return {
     statusCode: 200,
     body: JSON.stringify({
-      average_deviation: result.average_deviation,
+      input1: result.input1,
     }),
   };
 };

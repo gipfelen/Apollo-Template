@@ -1,0 +1,7 @@
+*.terraform
+*.terraform.lock.hcl
+*terraform.tfstate
+aws/tmp/*.zip
+ibm/tmp/*.zip
+*.DS_Store
+*terraform.tfstate.backup

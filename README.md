@@ -21,6 +21,7 @@ cd Apollo-Template
 - Add a function to auto deployment:
      - [For AWS](./doc/awsAddDeployment.md)
      - [For IBM](./doc/ibmAddDeployment.md)
+- [Create Docker image](.doc/docker.md)
 - [Add a S3 Bucket](./doc/s3Bucket.md)
 
 

@@ -26,7 +26,7 @@ provider "ibm" {
 
 
 locals {
-  function_names = ["template-node"]
+  node_functions = ["template-node"]
   function_docker_names = ["template-python"]
   function_docker_images = ["ibmfunctions/action-python-v3.7"]
 }
@@ -35,15 +35,15 @@ locals {
 
 # Function configuration
 resource "ibm_function_action" "functions" {
-  count = length(local.function_names)
+  count = length(local.node_functions)
 
-  name      = local.function_names[count.index]
+  name      = local.node_functions[count.index]
   namespace = "apollo"
   provider = ibm.region
 
   exec {
     kind = "nodejs:12"
-    code_path = "tmp/${local.function_names[count.index]}.zip"
+    code_path = "tmp/${local.node_functions[count.index]}.zip"
   }
 
   # Timeout and memory

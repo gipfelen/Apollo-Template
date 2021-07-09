@@ -1,4 +1,4 @@
-def template_function(json_input):
+def cloud_function(json_input):
     input1 = json_input["input1"]
     
     # Processing

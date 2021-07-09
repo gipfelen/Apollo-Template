@@ -21,9 +21,6 @@ cd Apollo-Template
 - Add a function to auto deployment:
      - [For AWS](./doc/awsAddDeployment.md)
      - [For IBM](./doc/ibmAddDeployment.md)
-- [Create Docker image](.doc/docker.md)
-- [Add a S3 Bucket](./doc/s3Bucket.md)
-
 
 
 
@@ -44,7 +41,7 @@ cd Apollo-Template
    - B: Deploy single provider with custom settings:
         Run `docker run --rm -v ${PWD}:/app/ chrisengelhardt/apollo-autodeploy --help` from within the directory of your chosen cloud provider
 
-Note: For IBM you have to create a namespace first and place it into `ibm.tf` at line `namespace = "YOURNAMESPACE"`.
+Note: For IBM you have to create a namespace first and place it into `ibm.tf` on all lines with `namespace = "YOURNAMESPACE"`.
 
 ```
 Usage: /app/deploy.sh [--help] [--region region] [--url] [--mapping]

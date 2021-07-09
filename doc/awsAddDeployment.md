@@ -2,7 +2,7 @@
 We need to adjust `aws/lambda.tf` and `aws/deployment.sh` to add a new function to the auto deployment.
 
 - Node:
-    - `aws/deployment.sh`:
+    - `aws/deploy.sh`:
         1. Add `./build.sh ../functions/<your-function-name>` before `terraform init`.
     - `aws/lambda.tf`:
         1. Add `"<your_function_name>"` to the function_names array.
@@ -38,7 +38,7 @@ We need to adjust `aws/lambda.tf` and `aws/deployment.sh` to add a new function 
             }
             ```
 - Python:
-    - `aws/deployment.sh`:
+    - `aws/deploy.sh`:
         1. Add `./build.sh ../functions/<your-function-name>` before `terraform init`.
     - `aws/lambda.tf`:
         1. Add `"<your_function_name>"` to the function_names array.

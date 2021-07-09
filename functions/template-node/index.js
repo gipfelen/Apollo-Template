@@ -1,4 +1,4 @@
-async function templateFunction(params) {
+async function cloudFunction(params) {
   const body = params;
   const input1 = body['input1']
   const response = {
@@ -11,7 +11,7 @@ async function templateFunction(params) {
 //AWS CALL
 exports.handler = async (event) => {  
   const body = JSON.parse(event.body);
-  result = await templateFunction(body)
+  result = await cloudFunction(body)
   return {
     statusCode: 200,
     body: JSON.stringify({
@@ -21,4 +21,4 @@ exports.handler = async (event) => {
 };
 
 //IBM
-exports.main = templateFunction;
+exports.main = cloudFunction;

@@ -1,4 +1,4 @@
-# Apollo Template
+# Function Template
 
 #### Overview
 
